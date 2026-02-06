@@ -105,9 +105,7 @@ if ui_mode == "PC":
     col3.metric("금융 기상 상태", data["weather"])
 
 else:
-    # ===== 모바일 UI =====
-
-   weather_map = {
+    weather_map = {
     "맑음": ("badge-sunny", "..."),
     "소나기": ("badge-rain", "..."),
     "안개": ("badge-fog", "..."),
@@ -179,6 +177,7 @@ st.caption("""
 RDI 정의: 회복기간 분위수 기반 로그 스케일링 후  
 0–100 범위로 정규화한 회복 지연 리스크 지표
 """)
+
 
 
 
