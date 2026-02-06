@@ -74,6 +74,6 @@ df_plot = pd.DataFrame({
 st.bar_chart(df_plot.set_index("Scenario"))
 
 st.caption("""
-RDI 정의: ln(1 + T*) 기반 로그 스케일링 후 0–100 역방향 정규화  
-(Recovery Duration Index, PDF 수식 26–28)
+RDI 정의: 회복기간 분위수 기반 로그 스케일링 후  
+0–100 범위로 정규화한 회복 지연 리스크 지표
 """)
