@@ -30,6 +30,15 @@ def calculate_rdi(T_star, Z_min, Z_max):
 selected = st.selectbox("📂 하방 이벤트 선택", list(cases.keys()))
 data = cases[selected]
 
+st.markdown("---")
+ui_mode = st.radio(
+    "🖥 UI 모드 선택",
+    ["PC", "모바일"],
+    horizontal=True
+)
+st.markdown("---")
+
+
 q = st.radio(
     "📌 회복 시나리오 선택",
     options=[0.2, 0.5, 0.8],
@@ -44,10 +53,40 @@ Z_min, Z_max = Z_values.min(), Z_values.max()
 
 RDI = calculate_rdi(T_star, Z_min, Z_max)
 
-col1, col2, col3 = st.columns(3)
-col1.metric("회복기간 분위수 (일)", f"{T_star}")
-col2.metric("RDI 점수", f"{RDI:.1f}")
-col3.metric("금융 기상 상태", data["weather"])
+if ui_mode == "PC":
+    # ===== 기존 PC UI =====
+    col1, col2, col3 = st.columns(3)
+    col1.metric("회복기간 분위수 (일)", f"{T_star}")
+    col2.metric("RDI 점수", f"{RDI:.1f}")
+    col3.metric("금융 기상 상태", data["weather"])
+
+else:
+    # ===== 모바일 UI =====
+    st.markdown("""
+    <style>
+    .card {
+        background-color: #f8f9fa;
+        padding: 18px;
+        border-radius: 18px;
+        margin-bottom: 16px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown(
+        f"""
+        <div class="card">
+            <h3>📊 RDI 점수</h3>
+            <h1>{RDI:.1f}</h1>
+        </div>
+        <div class="card">
+            <h3>🌦 금융 기상</h3>
+            <h1>{data["weather"]}</h1>
+            <p>회복기간: {T_star}일</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 st.markdown("### 🧠 해석")
 st.info(
@@ -77,3 +116,4 @@ st.caption("""
 RDI 정의: 회복기간 분위수 기반 로그 스케일링 후  
 0–100 범위로 정규화한 회복 지연 리스크 지표
 """)
+
