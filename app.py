@@ -107,14 +107,18 @@ if ui_mode == "PC":
 else:
     # ===== 모바일 UI =====
 
-    weather_map = {
-        "맑음": ("badge-sunny", "하방 경직성이 강하고 회복 탄력성이 높습니다."),
-        "소나기": ("badge-rain", "일시적 충격 구간으로 단기 회복 가능성이 있습니다."),
-        "안개": ("badge-fog", "불확실성이 높아 추가 신호 확인이 필요합니다."),
-        "태풍": ("badge-storm", "구조적 리스크 구간으로 보수적 접근이 필요합니다.")
-    }
+   weather_map = {
+    "맑음": ("badge-sunny", "..."),
+    "소나기": ("badge-rain", "..."),
+    "안개": ("badge-fog", "..."),
+    "흐림": ("badge-fog", "..."),   # 추가
+    "태풍": ("badge-storm", "...")
+}
 
-    badge_class, desc = weather_map[data["weather"]]
+    badge_class, desc = weather_map.get(
+    str(data.get("weather", "")).strip(),
+    ("badge-fog", "시장 상태에 대한 추가 해석이 필요합니다.")
+)
 
 
     st.markdown(
@@ -175,5 +179,6 @@ st.caption("""
 RDI 정의: 회복기간 분위수 기반 로그 스케일링 후  
 0–100 범위로 정규화한 회복 지연 리스크 지표
 """)
+
 
 
